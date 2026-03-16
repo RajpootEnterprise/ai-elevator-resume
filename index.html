@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Vidyamantra AI</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:500px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+background:#2563eb;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+text-align:left;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Vidyamantra AI</h1>
+
+<p>AI Powered Resume Elevator</p>
+
+<input type="file" id="resumeFile">
+
+<br><br>
+
+<button onclick="uploadResume()">Analyze Resume</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+
+<script>
+
+async function uploadResume(){
+
+const fileInput = document.getElementById("resumeFile")
+
+const file = fileInput.files[0]
+
+const formData = new FormData()
+
+formData.append("file", file)
+
+const response = await fetch(
+"http://127.0.0.1:8000/upload-resume",
+{
+method:"POST",
+body:formData
+})
+
+const data = await response.json()
+
+document.getElementById("result").innerHTML = ;
+
+<h3>Resume Score: ${data.score}%</h3>
+
+<b>Detected Skills:</b>
+<ul>
+${data.skills_detected.map(skill => `<li>${skill}</li>`).join("")}
+</ul>
+
+<b>Missing Skills:</b>
+<ul>
+${data.missing_skills.map(skill => `<li>${skill}</li>`).join("")}
+</ul>
+
+}
+
+</script>
+
+</body>
+
+</html>
